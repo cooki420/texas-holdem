@@ -132,11 +132,20 @@ RED    = "\033[91m"
 GREEN  = "\033[92m"
 YELLOW = "\033[93m"
 CYAN   = "\033[96m"
+BLUE   = "\033[94m"
 RESET  = "\033[0m"
 BOLD   = "\033[1m"
 
+SUIT_COLOR = {
+    "♠": "",      # black (default)
+    "♥": RED,     # red
+    "♣": GREEN,   # green
+    "♦": BLUE,    # blue
+}
+
 def color_card(card: str) -> str:
-    return f"{RED}{card}{RESET}" if card[-1] in ("♥", "♦") else card
+    color = SUIT_COLOR.get(card[-1], "")
+    return f"{color}{card}{RESET}" if color else card
 
 def fmt_hand(hand: list) -> str:
     return "  ".join(color_card(c) for c in hand)
